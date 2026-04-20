@@ -12,6 +12,7 @@ class QuizActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_COUNT = "question_count"
+        const val EXTRA_CATEGORY = "question_category"
     }
 
     private lateinit var binding: ActivityQuizBinding
@@ -37,7 +38,13 @@ class QuizActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val count = intent.getIntExtra(EXTRA_COUNT, 20)
-        questions = QuestionsRepository.getShuffled(this, count)
+        val category = intent.getStringExtra(EXTRA_CATEGORY)
+        questions = QuestionsRepository.getQuestions(this, category, count)
+
+        if (questions.isEmpty()) {
+            finish()
+            return
+        }
 
         showQuestion()
 

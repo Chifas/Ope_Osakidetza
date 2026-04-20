@@ -1,70 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="32dp"
-    android:background="#F5F5F5">
+    android:background="#F8F9FA">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="🏥"
-        android:textSize="52sp"
-        android:layout_marginBottom="8dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Osakidetza Quiz"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:textColor="#1565C0"
-        android:layout_marginBottom="4dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Auxiliar de Administración"
-        android:textSize="15sp"
-        android:textColor="#757575"
-        android:layout_marginBottom="40dp" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnQuick"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:text="Test Rápido — 20 preguntas"
-        android:textSize="16sp"
-        android:layout_marginBottom="12dp"
-        app:backgroundTint="#1565C0" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnFull"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:text="Test Completo — 299 preguntas"
-        android:textSize="16sp"
-        android:layout_marginBottom="12dp"
-        app:backgroundTint="#0D47A1" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnStudy"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:text="Modo Estudio"
-        android:textSize="16sp"
-        android:layout_marginBottom="32dp"
-        app:backgroundTint="#2E7D32" />
-
-    <TextView
-        android:id="@+id/tvStats"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textColor="#757575"
-        android:text="¡Empieza a practicar! (299 preguntas)" />
+        android:orientation="vertical"
+        android:padding="24dp">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tvWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¡Hola, Itsaso! 👋"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#1A237E" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¿Lista para practicar unos test?"
+            android:textSize="18sp"
+            android:textColor="#5C6BC0"
+            android:layout_marginBottom="32dp" />
+
+        <!-- Temario Común Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Temario Común"
+            android:textAllCaps="true"
+            android:textSize="12sp"
+            android:letterSpacing="0.1"
+            android:textStyle="bold"
+            android:textColor="#757575"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="24dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnComunQuick"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:text="Rápido\n(20)"
+                app:backgroundTint="#E8EAF6"
+                app:cornerRadius="16dp"
+                app:icon="@drawable/ic_timer"
+                app:iconGravity="top"
+                android:textColor="#1A237E" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnComunFull"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:text="Completo\n(100)"
+                app:backgroundTint="#E8EAF6"
+                app:cornerRadius="16dp"
+                app:icon="@drawable/ic_assignment"
+                app:iconGravity="top"
+                android:textColor="#1A237E" />
+        </LinearLayout>
+
+        <!-- Temario Específico Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Temario Específico"
+            android:textAllCaps="true"
+            android:textSize="12sp"
+            android:letterSpacing="0.1"
+            android:textStyle="bold"
+            android:textColor="#757575"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="24dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEspecQuick"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:text="Rápido\n(20)"
+                app:backgroundTint="#E1F5FE"
+                app:cornerRadius="16dp"
+                app:icon="@drawable/ic_timer"
+                app:iconGravity="top"
+                android:textColor="#01579B" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEspecFull"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:text="Completo\n(100)"
+                app:backgroundTint="#E1F5FE"
+                app:cornerRadius="16dp"
+                app:icon="@drawable/ic_assignment"
+                app:iconGravity="top"
+                android:textColor="#01579B" />
+        </LinearLayout>
+
+        <!-- Todo el Temario Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Todo el Temario"
+            android:textAllCaps="true"
+            android:textSize="12sp"
+            android:letterSpacing="0.1"
+            android:textStyle="bold"
+            android:textColor="#757575"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="32dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAllQuick"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:text="Rápido\n(20)"
+                app:backgroundTint="#E0F2F1"
+                app:cornerRadius="16dp"
+                app:icon="@drawable/ic_timer"
+                app:iconGravity="top"
+                android:textColor="#004D40" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAllFull"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:text="Completo\n(100)"
+                app:backgroundTint="#E0F2F1"
+                app:cornerRadius="16dp"
+                app:icon="@drawable/ic_assignment"
+                app:iconGravity="top"
+                android:textColor="#004D40" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnStudy"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Modo Estudio (Repasar)"
+            app:cornerRadius="12dp"
+            app:backgroundTint="#455A64"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:id="@+id/tvStats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#EEEEEE"
+            android:padding="16dp"
+            android:textAlignment="center"
+            android:textColor="#757575"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
