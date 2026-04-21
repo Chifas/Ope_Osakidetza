@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <!-- El radio de 400dp en un View de 1000dp asegura un difuminado total hacia los bordes -->
+    <gradient
+        android:type="radial"
+        android:gradientRadius="450dp"
+        android:startColor="#4D4F46E5"
+        android:endColor="#004F46E5"
+        android:centerX="0.5"
+        android:centerY="0.5" />
+</shape>

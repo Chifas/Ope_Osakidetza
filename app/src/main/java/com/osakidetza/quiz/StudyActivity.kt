@@ -2,6 +2,8 @@ package com.osakidetza.quiz
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +16,10 @@ import com.osakidetza.quiz.databinding.ActivityStudyBinding
 class StudyActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityStudyBinding
+    private lateinit var allQuestions: List<Question>
+    private lateinit var adapter: StudyAdapter
+    private var currentFilter = "Todos"
+    private var currentSearch = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,12 +27,53 @@ class StudyActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.title = "Modo Estudio (${QuestionsRepository.getAll(this).size} preguntas)"
+        supportActionBar?.setDisplayShowTitleEnabled(false) // Ocultar título por defecto para usar el centrado
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val questions = QuestionsRepository.getAll(this)
+        allQuestions = QuestionsRepository.getAll(this)
+        adapter = StudyAdapter(allQuestions)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = StudyAdapter(questions)
+        binding.recyclerView.adapter = adapter
+
+        setupFilters()
+    }
+
+    private fun setupFilters() {
+        binding.etSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                currentSearch = s.toString().lowercase()
+                applyFilters()
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        binding.chipGroupFilter.setOnCheckedStateChangeListener { group, checkedIds ->
+            currentFilter = when (checkedIds.firstOrNull()) {
+                R.id.chipComun -> "Común"
+                R.id.chipEspec -> "Específico"
+                else -> "Todos"
+            }
+            applyFilters()
+        }
+    }
+
+    private fun applyFilters() {
+        val filteredList = allQuestions.filter { q ->
+            val matchesSearch = q.question.lowercase().contains(currentSearch) || 
+                               q.options.any { it.lowercase().contains(currentSearch) }
+            
+            // Corrección: La categoría en el JSON es "comun" o "especifico" (con o sin tilde según el JSON)
+            // Usamos equals con ignoreCase y normalizamos para evitar problemas de tildes si las hubiera
+            val matchesCategory = when (currentFilter) {
+                "Común" -> q.category.equals("comun", ignoreCase = true)
+                "Específico" -> !q.category.equals("comun", ignoreCase = true)
+                else -> true
+            }
+            
+            matchesSearch && matchesCategory
+        }
+        adapter.updateList(filteredList)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -35,8 +82,13 @@ class StudyActivity : AppCompatActivity() {
     }
 }
 
-class StudyAdapter(private val questions: List<Question>) :
+class StudyAdapter(private var questions: List<Question>) :
     RecyclerView.Adapter<StudyAdapter.ViewHolder>() {
+
+    fun updateList(newList: List<Question>) {
+        questions = newList
+        notifyDataSetChanged()
+    }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvNumber: TextView = view.findViewById(R.id.tvNumber)
